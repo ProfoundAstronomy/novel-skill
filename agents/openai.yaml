@@ -1,0 +1,4 @@
+interface:
+  display_name: "Novel Skill"
+  short_description: "Plan, draft, resume, and validate long-form Chinese novels."
+  default_prompt: "Use $novel-skill to plan and write a complete Chinese novel in phased files under the current workspace."
