@@ -1,32 +1,37 @@
 # novel-skill
 
-A reusable local AI skill for planning, drafting, resuming, and validating long-form Chinese novels.
+一个可复用的中文长篇小说创作 Skill，用于规划、续写、逐章生成和自动校验。
 
-This repository packages a staged novel-writing workflow around:
+这个仓库把小说创作流程拆成可执行的阶段化工作流，适合放进本地 AI skill 环境中反复使用，而不是只写一次性的短篇故事。
 
-- guided story setup
-- outline and character planning
-- chapter-by-chapter drafting
-- resumable project state
-- automatic chapter word-count validation
+## 能做什么
 
-## What It Does
+`novel-skill` 主要解决的是“把一部长篇小说稳定写完”：
 
-`novel-skill` is designed for long-form Chinese fiction rather than one-shot short stories.
+- 分阶段收集题材、主角、冲突、世界观和风格要求
+- 自动生成人物档案、大纲和写作计划
+- 按章节逐步写作，而不是一次性糊整本
+- 支持中断后继续写
+- 用脚本检查章节字数，发现不达标时回修
 
-It helps an AI agent:
+## 工作流
 
-1. collect story constraints through phased questioning
-2. generate a project folder with character sheets, outline, and writing plan
-3. draft chapters against the outline
-4. resume interrupted work from saved state
-5. validate chapter length and revise weak chapters
+整个 Skill 分为 5 个阶段：
 
-## Repository Layout
+1. 初始化
+2. 故事设定问答
+3. 规划与确认
+4. 逐章写作
+5. 自动校验与修复
+
+详细流程和写作指南都在 `references/` 目录里。
+
+## 目录结构
 
 ```text
 novel-skill/
 ├── SKILL.md
+├── NOTICE.md
 ├── agents/
 │   └── openai.yaml
 ├── references/
@@ -36,63 +41,56 @@ novel-skill/
     └── check_chapter_wordcount.py
 ```
 
-## Workflow
+## 产出约定
 
-The skill is organized into five phases:
-
-1. Initialization
-2. Story setup
-3. Planning
-4. Drafting
-5. Validation and repair
-
-The detailed flow and writing guides live under `references/`.
-
-## Output Convention
-
-The skill writes novel projects under:
+Skill 默认在当前工作区下创建小说项目目录：
 
 ```text
 ./chinese-novelist/
 ```
 
-Typical generated files:
+典型产出文件包括：
 
 - `00-人物档案.md`
 - `01-大纲.md`
 - `02-写作计划.json`
 - `第01章-*.md`
+- `第02章-*.md`
 
-## Script
+## 脚本
 
-Check a single chapter:
+检查单章字数：
 
 ```bash
 python3 scripts/check_chapter_wordcount.py <chapter-file>
 ```
 
-Check all chapters in a project:
+检查整部小说所有章节：
 
 ```bash
 python3 scripts/check_chapter_wordcount.py --all <project-dir>
 ```
 
-## Adaptation Notes
+## 适配说明
 
-This repository is adapted for the current local Codex-style skill environment.
+这个版本不是原样镜像，而是针对当前本地 Codex 风格环境做过适配：
 
-Key changes from the upstream source:
+- 把 UI 专用问答方式改成普通对话式交互
+- 默认执行模式收敛为 `serial`
+- 去掉当前环境不适用的团队协作执行路径
+- 脚本命令统一为 `python3`
 
-- UI-specific question-tool instructions were rewritten to plain chat-driven interaction
-- the default execution mode is `serial`
-- unsupported team-specific agent workflow details were removed from active usage
-- command examples were normalized to `python3`
+## 来源说明
 
-## Upstream Source
-
-This repository is derived from:
+本仓库基于上游项目改造而来：
 
 - `PenglongHuang/chinese-novelist-skill`
-- Upstream URL: https://github.com/PenglongHuang/chinese-novelist-skill
+- 上游地址：https://github.com/PenglongHuang/chinese-novelist-skill
 
-If you publish or redistribute this repository, keep upstream attribution and confirm the upstream license terms before wider distribution.
+更多说明见 [NOTICE.md](NOTICE.md)。
+
+## 许可证提醒
+
+在我整理这个仓库时，上游仓库没有通过 GitHub License API 暴露标准许可证记录。
+
+因此当前仓库先保留来源说明与改造说明，不擅自附加新的开源许可证文本。若后续确认了上游授权方式，再补充正式 `LICENSE` 会更稳妥。
