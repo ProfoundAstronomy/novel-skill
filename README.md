@@ -112,27 +112,3 @@ python3 scripts/check_chapter_wordcount.py <chapter-file>
 ```bash
 python3 scripts/check_chapter_wordcount.py --all <project-dir>
 ```
-
-## 适配说明
-
-这个版本不是原样镜像，而是针对当前本地 Codex 风格环境做过适配：
-
-- 把 UI 专用问答方式改成普通对话式交互
-- 默认执行模式收敛为 `serial`
-- 去掉当前环境不适用的团队协作执行路径
-- 脚本命令统一为 `python3`
-
-## 来源说明
-
-本仓库基于上游项目改造而来：
-
-- `PenglongHuang/chinese-novelist-skill`
-- 上游地址：https://github.com/PenglongHuang/chinese-novelist-skill
-
-更多说明见 [NOTICE.md](NOTICE.md)。
-
-## 许可证提醒
-
-在我整理这个仓库时，上游仓库没有通过 GitHub License API 暴露标准许可证记录。
-
-因此当前仓库先保留来源说明与改造说明，不擅自附加新的开源许可证文本。若后续确认了上游授权方式，再补充正式 `LICENSE` 会更稳妥。
